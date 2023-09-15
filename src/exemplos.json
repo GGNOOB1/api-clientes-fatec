@@ -1,0 +1,72 @@
+[
+    {
+        "nome": "Fernando Luiz Kaique",
+        "sobrenome": "Nogueira",
+        "cpf": "27252490904",
+        "telefone": "11951202163",
+        "email": "fernando.luiz.nogueira@acaocontabilsjc.com.br",
+        "cep": "66615-535",
+        "logradouro": "Vila São Pedro",
+        "nr_residencial": "809",
+        "complemento": "Apt 5",
+        "bairro": "Marambaia",
+        "cidade": "Belém",
+        "uf": "PA"
+    },
+    {
+        "nome": "Liz Rayssa",
+        "sobrenome": "Rodrigues",
+        "cpf": "96503233680",
+        "telefone": "11996614349",
+        "email": "liz-rodrigues95@sygma.com.br",
+        "cep": "83701-070",
+        "logradouro": "Rua Professor Sebastião Augusto Querne",
+        "nr_residencial": "568",
+        "complemento": "Casa 2",
+        "bairro": "Iguaçu",
+        "cidade": "Araucária",
+        "uf": "PR"
+    },
+    {
+        "nome": "Rafaela Maya Liz",
+        "sobrenome": "Gonçalves",
+        "cpf": "33830363087",
+        "telefone": "92992702107",
+        "email": "rafaela_maya_goncalves@dafitex.com.br",
+        "cep": "69037-018",
+        "logradouro": "Alameda Inglaterra",
+        "nr_residencial": "265",
+        "complemento": "Próximo ao banco",
+        "bairro": "Ponta Negra",
+        "cidade": "Manaus",
+        "uf": "AM"
+    },
+    {
+        "nome": "Benjamin Anthony",
+        "sobrenome": "Rezende",
+        "cpf": "32852647052",
+        "telefone": "86987342906",
+        "email": "benjamin_anthony_rezende@defensoria.sp.gov.br",
+        "cep": "65634-204",
+        "logradouro": "Beco Três",
+        "nr_residencial": "352",
+        "complemento": "Em frente ao cemitério",
+        "bairro": "São Marcos",
+        "cidade": "Timon",
+        "uf": "MA"
+    },
+    {
+        "nome": "Heloise Sophie",
+        "sobrenome": "Duarte",
+        "cpf": "09165302729",
+        "telefone": "84995465132",
+        "email": "heloise-duarte74@sabesp.com.br",
+        "cep": "59607-430",
+        "logradouro": "Rua Francisco Eudes",
+        "nr_residencial": "147",
+        "complemento": "Perto da loja Fazzuely",
+        "bairro": "Nova Betânia",
+        "cidade": "Mossoró",
+        "uf": "RN"
+    }
+]
