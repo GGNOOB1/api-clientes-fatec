@@ -15,7 +15,7 @@ export default async function authenticateToken(
   const decoded = await AuthService.verifyToken(token);
 
   if (!decoded) {
-    return res.status(401).json({ message: 'Token inválido' });
+    return res.status(401).json({ message: 'Token inválido ou expirado' });
   }
 
   req['payload'] = decoded;
