@@ -9,7 +9,7 @@ export const CreateConnection = new DataSource({
   // Dados para bd de teste local
   type: 'sqlite',
   database: 'src/config/database/db/clientes.sqlite',
-  synchronize: false,
+  synchronize: true,
   logging: false,
   entities: [Customer, City, State, Category], //
   subscribers: [],
