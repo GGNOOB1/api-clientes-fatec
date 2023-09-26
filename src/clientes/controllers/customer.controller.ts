@@ -45,8 +45,7 @@ class CustomerController {
       const cliente = await this.customerService.listCustomer(req.params.id);
       return res.status(200).json(cliente);
     } catch (error) {
-      return res.status(error.statusCode).json({
-        statusCode: error.statusCode,
+      return res.status(404).json({
         message: error.message,
       });
     }

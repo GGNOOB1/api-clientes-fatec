@@ -18,22 +18,29 @@ import {
   IsDefined,
   IsEnum,
   IsOptional,
+  Min,
+  Max,
 } from 'class-validator';
 import { CpfCnpjValidator } from '../validators/cpfValidator';
 import { Type } from 'class-transformer';
 import StatusCustomer from '../enums/statusCustomer';
 import GenderCustomer from '../enums/genderCustomer';
 import CityDto from './city.dto';
+import { RgValidator } from '../validators/rgValidator';
 
 export default class UpdateCustomerDto {
-  id: number;
-
   @IsOptional()
   @IsString()
   @IsNotEmpty()
   @MinLength(1)
   @MaxLength(200)
   name: string;
+
+  @IsString()
+  @Validate(RgValidator)
+  @IsNotEmpty()
+  @IsOptional()
+  identify_document: number;
 
   @IsOptional()
   @IsString()
@@ -56,8 +63,9 @@ export default class UpdateCustomerDto {
   birthdate: Date;
 
   @IsOptional()
-  @IsString()
-  @Length(1)
+  @IsNumber()
+  @Min(0)
+  @Max(1)
   @IsEnum(StatusCustomer)
   @IsNotEmpty()
   status: StatusCustomer;
@@ -71,20 +79,6 @@ export default class UpdateCustomerDto {
   email: string;
 
   @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(1)
-  @MaxLength(50)
-  password: string;
-
-  @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(1)
-  @MaxLength(50)
-  confirmPassword: string;
-
-  @IsOptional()
   @IsNotEmpty()
   @IsString()
   @IsEnum(GenderCustomer)
@@ -96,5 +90,7 @@ export default class UpdateCustomerDto {
   @Type(() => CityDto)
   city: CityDto;
 
-  imgpath: string;
+  @IsString()
+  @IsOptional()
+  image_path: string;
 }
