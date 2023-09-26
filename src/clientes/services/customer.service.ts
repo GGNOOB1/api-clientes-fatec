@@ -14,20 +14,22 @@ import ICustomer from '../interfaces/ICreateCustomerRequestBody';
 import ICreateCustomerRequestBody from '../interfaces/ICreateCustomerRequestBody';
 import UpdateCustomerDto from '../dtos/updateCustomer.dto';
 import getRandomImage from '../utils/randomImage';
+import { formatRg } from '../utils/formatRg';
 
 class CustomerService {
   private customerRepository: Repository<Customer>;
-  private cityRepository: Repository<City>;
-  private stateRepository: Repository<State>;
+  // private cityRepository: Repository<City>;
+  // private stateRepository: Repository<State>;
 
   constructor() {
     this.customerRepository = CreateConnection.getRepository(Customer);
-    this.cityRepository = CreateConnection.getRepository(City);
-    this.stateRepository = CreateConnection.getRepository(State);
+    // this.cityRepository = CreateConnection.getRepository(City);
+    // this.stateRepository = CreateConnection.getRepository(State);
   }
 
   public async signUpCustomer(customer: ICreateCustomerRequestBody) {
     const createCustomer = plainToClass(CreateCustomerDto, customer);
+
     const errors = await validate(createCustomer);
 
     if (errors.length > 0) {
@@ -41,6 +43,13 @@ class CustomerService {
     const emailExists = await this.customerRepository.findOneBy({
       email: customer.email,
     });
+
+    const newRg = parseInt(formatRg(createCustomer.identify_document));
+
+    const rgExists = await this.customerRepository.findOneBy({
+      identify_document: newRg,
+    });
+
     if (emailExists) {
       throw new Error('O email já foi cadastrado!');
     }
@@ -49,33 +58,38 @@ class CustomerService {
       throw new Error('As senhas não coincidem');
     }
 
+    if (rgExists) {
+      throw new Error('Esse rg ja foi cadastrado!');
+    }
     customer.password = await bcrypt.hash(
       customer.password,
       parseInt(process.env.HASH),
     );
 
-    const newState = await this.stateRepository.create({
-      name: customer.city.state.name,
-    });
-    await this.stateRepository.save(newState);
+    customer.identify_document = formatRg(customer.identify_document);
 
-    const newCity = await this.cityRepository.create({
-      name: customer.city.name,
-      state: newState,
-    });
-    await this.cityRepository.save(newCity);
+    // const newState = await this.stateRepository.create({
+    //   name: customer.city.state.name,
+    // });
+    // await this.stateRepository.save(newState);
+
+    // const newCity = await this.cityRepository.create({
+    //   name: customer.city.name,
+    //   state: newState,
+    // });
+    // await this.cityRepository.save(newCity);
 
     const newCustomer = await this.customerRepository.create({
+      identify_document: parseInt(customer.identify_document),
       address: customer.address,
       birthdate: customer.birthdate,
       email: customer.email,
       name: customer.name,
       password: customer.password,
       phone: customer.phone,
-      status: customer.status,
+      status: parseInt(customer.status),
       gender: customer.gender,
-      imgpath: getRandomImage(),
-      city: newCity,
+      image_path: getRandomImage(),
     });
 
     await this.customerRepository.save(newCustomer);
@@ -159,6 +173,20 @@ class CustomerService {
       if (emailExists) {
         throw new Error('O email já foi cadastrado!');
       }
+    }
+
+    if (dadosAtualizados.identify_document) {
+      const newRg = formatRg(dadosAtualizados.identify_document.toString());
+
+      const rgExists = await this.customerRepository.findOneBy({
+        identify_document: parseInt(newRg),
+      });
+
+      if (rgExists) {
+        throw new Error('Esse rg ja foi cadastrado!');
+      }
+
+      dadosAtualizados.identify_document = parseInt(newRg);
     }
 
     await this.customerRepository.update({ id }, dadosAtualizados);
