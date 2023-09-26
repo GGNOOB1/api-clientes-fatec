@@ -68,12 +68,12 @@ export default class AuthService {
 
   static async generateToken(customer: Customer): Promise<string> {
     const payload = {
-      id: customer.id,
-      key: customer.email,
+      sub: customer.id,
+      email: customer.email,
     };
 
-    const token = await jwt.sign(payload, process.env.PAYLOAD, {
-      expiresIn: '1m',
+    const token = await jwt.sign(payload, process.env.SIGNATURE, {
+      expiresIn: '1h',
     });
     return token;
   }
@@ -82,7 +82,7 @@ export default class AuthService {
     token: string,
   ): Promise<{ key: string; id: number } | null> {
     try {
-      const payload = jwt.verify(token, process.env.PAYLOAD);
+      const payload = jwt.verify(token, process.env.SIGNATURE);
       return payload as { key: string; id: number };
     } catch (error) {
       return null;
