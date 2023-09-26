@@ -7,24 +7,26 @@ import Category from '../../clientes/entity/category';
 
 export const CreateConnection = new DataSource({
   // Dados para bd de teste local
-  type: 'sqlite',
-  database: 'src/config/database/db/clientes.sqlite',
-  synchronize: true,
-  logging: false,
-  entities: [Customer, City, State, Category], //
-  subscribers: [],
+  // type: 'sqlite',
+  // database: 'src/config/database/db/clientes.sqlite',
+  // synchronize: false,
+  // logging: false,
+  // // entities: [Customer, City, State, Category],
+  // entities: [Customer],
+  // subscribers: [],
 
   // Dados para bd oficial
 
-  // type: 'mysql',
-  // host: process.env.HOST,
-  // port: parseInt(process.env.DB_PORT),
-  // username: process.env.DB_USER,
-  // password: process.env.DB_PASSWORD,
-  // database: process.env.DB_NAME,
-  // synchronize: false,
-  // logging: false,
+  type: 'mysql',
+  host: process.env.HOST,
+  port: parseInt(process.env.DB_PORT),
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  synchronize: false,
+  logging: false,
   // entities: [Customer, City, State, Category],
-  // subscribers: [],
-  // migrations: [],
+  entities: [Customer],
+  subscribers: [],
+  migrations: [],
 });
