@@ -20,6 +20,6 @@ export class CpfCnpjValidator implements ValidatorConstraintInterface {
   }
 
   defaultMessage(): string {
-    return 'The entered value is not a valid CPF or CNPJ';
+    return 'O valor inserido não é um cpf ou cnpj válido';
   }
 }
