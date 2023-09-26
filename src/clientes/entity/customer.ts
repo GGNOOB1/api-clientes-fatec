@@ -20,6 +20,9 @@ export class Customer {
   public id: number;
 
   @Column()
+  public identify_document: number;
+
+  @Column()
   public name: string;
 
   @Column()
@@ -32,7 +35,7 @@ export class Customer {
   public birthdate: Date;
 
   @Column()
-  public status: string;
+  public status: number;
 
   @Column()
   public email: string;
@@ -40,18 +43,18 @@ export class Customer {
   @Column()
   public gender: string;
 
-  @OneToOne(() => City, { eager: true })
-  @JoinColumn({ name: 'city_id' })
-  public city: City;
+  // @OneToOne(() => City, { eager: true })
+  // @JoinColumn({ name: 'city_id' })
+  // public city: City;
 
   @Column()
   public password: string;
 
-  @OneToOne(() => Category)
-  public category_id: number;
+  // @OneToOne(() => Category)
+  // public category_id: number;
 
   @Column()
-  public imgpath: string;
+  public image_path: string;
 
   @CreateDateColumn()
   created_at: Date;

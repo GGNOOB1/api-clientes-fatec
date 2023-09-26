@@ -4,6 +4,7 @@ import StatusCustomer from '../enums/statusCustomer';
 
 export default interface ICreateUserRequestBody {
   id: number;
+  identify_document: string;
   name: string;
   address: string;
   phone: string;
@@ -13,11 +14,11 @@ export default interface ICreateUserRequestBody {
   password: string;
   confirmPassword: string;
   gender: string;
-  city: {
-    name: string;
-    state: {
-      name: string;
-    };
-  };
+  // city: {
+  //   name: string;
+  //   state: {
+  //     name: string;
+  //   };
+  // };
   imgpath: string;
 }
