@@ -3,9 +3,14 @@ import AuthService from '../services/auth.service';
 
 export default class AuthController {
   private authService: AuthService;
+  public expirationDate = new Date();
+  public expirationMinutes = 5;
 
   constructor() {
     this.authService = new AuthService();
+    this.expirationDate.setTime(
+      this.expirationDate.getTime() + this.expirationMinutes * 60 * 1000,
+    );
   }
 
   public async login(req: Request, res: Response) {
@@ -13,7 +18,12 @@ export default class AuthController {
       const resposta = await this.authService.verificarLogin(req.body);
 
       if (resposta.success) {
-        res.status(200).json(resposta.message);
+        const token = resposta.message.token;
+
+        res
+          .status(200)
+          .setHeader('Authorization', `Bearer ${resposta.message.token}`)
+          .json(resposta.message);
       } else {
         res.status(400).json(resposta.errors);
       }
