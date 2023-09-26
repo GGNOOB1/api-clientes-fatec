@@ -68,5 +68,23 @@
         "bairro": "Nova Betânia",
         "cidade": "Mossoró",
         "uf": "RN"
+    },
+    {
+        "name": "Bruno Tai",
+        "identity_document": "28.478.269-5",
+        "address": "Rua das lolzeiros",
+        "phone": "84 4644-5678",
+        "birthdate": "1990-01-01",
+        "status": "S",
+        "email": "brunodapedra@gmail.com",
+        "gender": "M",
+        "password": "bruno122",
+        "confirmPassword": "bruno122",
+        "city": {
+            "name": "Osasco",
+            "state": {
+                "name": "SP"
+            }
+        }
     }
 ]
