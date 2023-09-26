@@ -51,6 +51,7 @@ export default class AuthService {
         message: {
           message: 'login realizado com sucesso!',
           token,
+          id: cliente.id,
         },
       };
     }
