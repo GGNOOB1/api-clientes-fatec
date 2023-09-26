@@ -17,12 +17,15 @@ import {
   IsNotEmptyObject,
   IsDefined,
   IsEnum,
+  Min,
+  Max,
 } from 'class-validator';
 import { CpfCnpjValidator } from '../validators/cpfValidator';
 import { Type } from 'class-transformer';
 import StatusCustomer from '../enums/statusCustomer';
 import GenderCustomer from '../enums/genderCustomer';
 import CityDto from './city.dto';
+import { RgValidator } from '../validators/rgValidator';
 
 export default class CreateCustomerDto {
   id: number;
@@ -33,6 +36,11 @@ export default class CreateCustomerDto {
   // @MinLength(11)
   // @MaxLength(14)
   // cpfCnpj: string;
+
+  @IsString()
+  @Validate(RgValidator)
+  @IsNotEmpty()
+  identify_document: string;
 
   @IsString()
   @IsNotEmpty()
@@ -57,8 +65,9 @@ export default class CreateCustomerDto {
   @IsNotEmpty()
   birthdate: Date;
 
-  @IsString()
-  @Length(1)
+  @IsNumber()
+  @Min(0)
+  @Max(1)
   @IsEnum(StatusCustomer)
   @IsNotEmpty()
   status: StatusCustomer;
@@ -92,5 +101,5 @@ export default class CreateCustomerDto {
   @Type(() => CityDto)
   city: CityDto;
 
-  imgpath: string;
+  image_path: string;
 }
