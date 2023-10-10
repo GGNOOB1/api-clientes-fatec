@@ -7,24 +7,23 @@ import { validate } from 'class-validator';
 import formatError from '../errors/formatError';
 
 import * as bcrypt from 'bcrypt';
-import City from '../entity/city';
-import State from '../entity/state';
+
 import CreateCustomerDto from '../dtos/createCustomer.dto';
 import ICustomer from '../interfaces/ICreateCustomerRequestBody';
 import ICreateCustomerRequestBody from '../interfaces/ICreateCustomerRequestBody';
 import UpdateCustomerDto from '../dtos/updateCustomer.dto';
 import getRandomImage from '../utils/randomImage';
 import { formatRg } from '../utils/formatRg';
+import DeliveryAddress from '../entity/delivery_address';
 
 class CustomerService {
   private customerRepository: Repository<Customer>;
-  // private cityRepository: Repository<City>;
-  // private stateRepository: Repository<State>;
+  private deliveryAddressRepository: Repository<DeliveryAddress>;
 
   constructor() {
     this.customerRepository = CreateConnection.getRepository(Customer);
-    // this.cityRepository = CreateConnection.getRepository(City);
-    // this.stateRepository = CreateConnection.getRepository(State);
+    this.deliveryAddressRepository =
+      CreateConnection.getRepository(DeliveryAddress);
   }
 
   public async signUpCustomer(customer: ICreateCustomerRequestBody) {
@@ -68,35 +67,36 @@ class CustomerService {
 
     customer.identify_document = formatRg(customer.identify_document);
 
-    // const newState = await this.stateRepository.create({
-    //   name: customer.city.state.name,
-    // });
-    // await this.stateRepository.save(newState);
-
-    // const newCity = await this.cityRepository.create({
-    //   name: customer.city.name,
-    //   state: newState,
-    // });
-    // await this.cityRepository.save(newCity);
-
     const newCustomer = await this.customerRepository.create({
       identify_document: parseInt(customer.identify_document),
-      address: customer.address,
       birthdate: customer.birthdate,
       email: customer.email,
       name: customer.name,
       password: customer.password,
       phone: customer.phone,
-      status: parseInt(customer.status),
+      status: 1,
       gender: customer.gender,
       image_path: getRandomImage(),
     });
 
     await this.customerRepository.save(newCustomer);
 
+    const newDeliveryAddress = await this.deliveryAddressRepository.create({
+      cep: createCustomer.cep,
+      number: createCustomer.number,
+      reference: createCustomer.reference,
+      complement: createCustomer.complement,
+      customer: newCustomer,
+    });
+    await this.deliveryAddressRepository.save(newDeliveryAddress);
+
     const currentCustomer = await this.customerRepository.findOneBy({
       email: newCustomer.email,
     });
+
+    delete currentCustomer.password;
+    delete currentCustomer.status;
+
     return {
       success: true,
       currentCustomer,
@@ -112,6 +112,7 @@ class CustomerService {
 
     for (let customer of customers) {
       delete customer.password;
+      delete customer.status;
     }
     return {
       data: customers,
@@ -126,6 +127,7 @@ class CustomerService {
     }
 
     delete customer.password;
+    delete customer.status;
 
     return {
       data: customer,
