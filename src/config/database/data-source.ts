@@ -1,18 +1,15 @@
 import 'reflect-metadata';
-import City from '../../clientes/entity/city';
 import { Customer } from '../../clientes/entity/customer';
-import State from '../../clientes/entity/state';
 import { DataSource } from 'typeorm';
-import Category from '../../clientes/entity/category';
-
+import DeliveryAddress from '../../clientes/entity/delivery_address';
 export const CreateConnection = new DataSource({
   // Dados para bd de teste local
   // type: 'sqlite',
   // database: 'src/config/database/db/clientes.sqlite',
-  // synchronize: false,
+  // synchronize: true,
   // logging: false,
   // // entities: [Customer, City, State, Category],
-  // entities: [Customer],
+  // entities: [Customer, DeliveryAddress],
   // subscribers: [],
 
   // Dados para bd oficial
@@ -25,8 +22,7 @@ export const CreateConnection = new DataSource({
   database: process.env.DB_NAME,
   synchronize: false,
   logging: false,
-  // entities: [Customer, City, State, Category],
-  entities: [Customer],
+  entities: [Customer, DeliveryAddress],
   subscribers: [],
   migrations: [],
 });
