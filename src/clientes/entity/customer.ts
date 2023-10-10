@@ -6,12 +6,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  Generated,
-  OneToOne,
-  JoinColumn,
 } from 'typeorm';
-import City from './city';
-import Category from './category';
 
 /* eslint-disable no-unused-vars */
 @Entity({ name: 'customer' })
@@ -24,9 +19,6 @@ export class Customer {
 
   @Column()
   public name: string;
-
-  @Column()
-  public address: string;
 
   @Column()
   public phone: string;
