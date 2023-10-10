@@ -29,68 +29,71 @@ import CityDto from './city.dto';
 import { RgValidator } from '../validators/rgValidator';
 
 export default class UpdateCustomerDto {
-  @IsOptional()
+  id: number;
+
+  // @IsString()
+  // @Validate(CpfCnpjValidator)
+  // @IsNotEmpty()
+  // @MinLength(11)
+  // @MaxLength(14)
+  // cpfCnpj: string;
+
   @IsString()
-  @IsNotEmpty()
+  @Validate(RgValidator)
+  @IsOptional()
+  identify_document: number;
+
+  @IsString()
+  @IsOptional()
   @MinLength(1)
   @MaxLength(200)
   name: string;
 
-  @IsString()
-  @Validate(RgValidator)
-  @IsNotEmpty()
-  @IsOptional()
-  identify_document: number;
-
-  @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(1)
-  @MaxLength(200)
-  address: string;
-
-  @IsOptional()
   @MinLength(1)
   @MaxLength(200)
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @IsPhoneNumber('BR')
   phone: string;
 
-  @IsOptional()
   @IsDateString()
-  @IsNotEmpty()
+  @IsOptional()
   birthdate: Date;
 
-  @IsOptional()
-  @IsNumber()
-  @Min(0)
-  @Max(1)
-  @IsEnum(StatusCustomer)
-  @IsNotEmpty()
-  status: StatusCustomer;
-
-  @IsOptional()
   @IsEmail()
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @MinLength(1)
   @MaxLength(255)
   email: string;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsString()
   @IsEnum(GenderCustomer)
   @Length(1)
   gender: GenderCustomer;
 
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => CityDto)
-  city: CityDto;
-
-  @IsString()
-  @IsOptional()
   image_path: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(9)
+  cep: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(10)
+  number: string;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(3)
+  @MaxLength(50)
+  complement: string;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(3)
+  @MaxLength(50)
+  reference: string;
 }
