@@ -45,14 +45,14 @@ export default function emailTemplate(nome, token) {
           <h1>Olá, ${nome}!</h1>
           <p>Você solicitou a recuperação de sua senha de acesso a nossa loja</p>
           <div id="divBotao">
-              <a href="https://front-clientes-kappa.vercel.app/novaSenha?token=${token}" id="botao"><b>Clique aqui para cadastrar sua nova senha</b></a>
+              <a href="https://jelly-tronic-client.vercel.app/novaSenha?token=${token}" id="botao"><b>Clique aqui para cadastrar sua nova senha</b></a>
           </div>
           <p>Se você não solicitou a recuperação de senha, ou em caso de dúvidas envie uma mensagem pra
-              <a href="">api.clientes.fatec.osasco@gmail.com</a>
+              <a href="">jellytronic.store@gmail.com</a>
           </p>
   
           <p>Atenciosamente,<br>
-              Equipe Api Clientes</p>
+              Equipe Jelly Tronics</p>
       </div>
   </body>
   
