@@ -27,7 +27,7 @@ export default function emailTemplate(nome, token) {
           #botao {
               padding: 20px 15px;
               color: white;
-              background-color: #4f46e5;
+              background-color: #f36300;
               text-decoration: none;
               border-radius: 5px;
   
