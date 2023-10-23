@@ -126,11 +126,15 @@ class CustomerService {
       throw new Error('Não existe esse id no banco de dados');
     }
 
+    const deliveryAddress = await this.deliveryAddressRepository.findOneBy({
+      customer,
+    });
+
     delete customer.password;
     delete customer.status;
 
     return {
-      data: customer,
+      data: { customer, deliveryAddress },
     };
   }
 
