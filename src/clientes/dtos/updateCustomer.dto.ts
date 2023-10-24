@@ -56,44 +56,10 @@ export default class UpdateCustomerDto {
   @IsPhoneNumber('BR')
   phone: string;
 
-  @IsDateString()
-  @IsOptional()
-  birthdate: Date;
-
   @IsEmail()
   @IsString()
   @IsOptional()
   @MinLength(1)
   @MaxLength(255)
   email: string;
-
-  @IsOptional()
-  @IsString()
-  @IsEnum(GenderCustomer)
-  @Length(1)
-  gender: GenderCustomer;
-
-  image_path: string;
-
-  @IsOptional()
-  @IsString()
-  @Length(9)
-  cep: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(10)
-  number: string;
-
-  @IsOptional()
-  @IsString()
-  @MinLength(3)
-  @MaxLength(50)
-  complement: string;
-
-  @IsOptional()
-  @IsString()
-  @MinLength(3)
-  @MaxLength(50)
-  reference: string;
 }

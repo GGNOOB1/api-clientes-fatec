@@ -197,8 +197,8 @@ class CustomerService {
     }
 
     await this.customerRepository.update({ id }, dadosAtualizados);
-    const clienteAtualizado = await this.customerRepository.findOneBy({ id });
-    return { success: true, data: clienteAtualizado };
+
+    return { success: true, data: 'Cliente atualizado com sucesso!' };
   }
 
   public async updateAddress(id, dadosAtualizados: UpdateAddressDto) {
