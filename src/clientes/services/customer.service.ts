@@ -15,6 +15,7 @@ import UpdateCustomerDto from '../dtos/updateCustomer.dto';
 import getRandomImage from '../utils/randomImage';
 import { formatRg } from '../utils/formatRg';
 import DeliveryAddress from '../entity/delivery_address';
+import UpdateAddressDto from '../dtos/updateAddress.dto';
 
 class CustomerService {
   private customerRepository: Repository<Customer>;
@@ -198,6 +199,31 @@ class CustomerService {
     await this.customerRepository.update({ id }, dadosAtualizados);
     const clienteAtualizado = await this.customerRepository.findOneBy({ id });
     return { success: true, data: clienteAtualizado };
+  }
+
+  public async updateAddress(id, dadosAtualizados: UpdateAddressDto) {
+    const updatedAddress = plainToClass(UpdateAddressDto, dadosAtualizados);
+    const errors = await validate(updatedAddress);
+
+    if (errors.length > 0) {
+      const listaErros = formatError(errors);
+      return {
+        success: false,
+        listaErros,
+      };
+    }
+
+    if (Object.keys(dadosAtualizados).length === 0) {
+      throw new Error('Nenhum campo foi inserido');
+    }
+    const address = await this.deliveryAddressRepository.findOneBy({ id });
+    if (!address) {
+      throw new Error('Não existe esse endereço no banco de dados');
+    }
+
+    await this.deliveryAddressRepository.update({ id }, dadosAtualizados);
+
+    return { success: true, data: 'Dados atualizados com sucesso!' };
   }
 }
 

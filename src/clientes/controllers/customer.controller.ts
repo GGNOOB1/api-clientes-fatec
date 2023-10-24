@@ -82,6 +82,23 @@ class CustomerController {
     const link = getRandomImage();
     res.status(200).json(link);
   }
+
+  async updateAddress(req: Request, res: Response) {
+    try {
+      const result = await this.customerService.updateAddress(
+        req.params.id,
+        req.body,
+      );
+
+      if (result.success) {
+        return res.status(200).json(result.data);
+      } else {
+        return res.status(400).json(result.listaErros);
+      }
+    } catch (error) {
+      return res.status(404).json({ error: error.message });
+    }
+  }
 }
 
 export default CustomerController;
