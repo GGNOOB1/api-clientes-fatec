@@ -61,7 +61,7 @@ export default class CreateCustomerDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(1)
-  @MaxLength(50)
+  @MaxLength(20)
   password: string;
 
   @IsString()
