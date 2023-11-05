@@ -83,6 +83,23 @@ class CustomerController {
     res.status(200).json(link);
   }
 
+  async addAddress(req: Request, res: Response) {
+    try {
+      const result = await this.customerService.createAddressByCustomer(
+        req.params.id,
+        req.body,
+      );
+
+      if (result.success) {
+        return res.status(200).json({ message: result.data });
+      } else {
+        return res.status(400).json(result.listaErros);
+      }
+    } catch (error) {
+      return res.status(404).json({ error: error.message });
+    }
+  }
+
   async updateAddress(req: Request, res: Response) {
     try {
       const result = await this.customerService.updateAddress(

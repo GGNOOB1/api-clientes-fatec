@@ -16,6 +16,7 @@ import getRandomImage from '../utils/randomImage';
 import { formatRg } from '../utils/formatRg';
 import DeliveryAddress from '../entity/delivery_address';
 import UpdateAddressDto from '../dtos/updateAddress.dto';
+import CreateAddressDto from '../dtos/createAddress.dto';
 
 class CustomerService {
   private customerRepository: Repository<Customer>;
@@ -199,6 +200,40 @@ class CustomerService {
     await this.customerRepository.update({ id }, dadosAtualizados);
 
     return { success: true, data: 'Cliente atualizado com sucesso!' };
+  }
+
+  public async createAddressByCustomer(id, dados: CreateAddressDto) {
+    const createAddress = plainToClass(CreateAddressDto, dados);
+    const errors = await validate(createAddress);
+
+    if (errors.length > 0) {
+      const listaErros = formatError(errors);
+      return {
+        success: false,
+        listaErros,
+      };
+    }
+
+    if (!id) {
+      throw new Error('Id do cliente não inserido');
+    }
+
+    const currentCustomer = await this.customerRepository.findOneBy({ id });
+
+    if (!currentCustomer) {
+      throw new Error('Cliente não encontrado!');
+    }
+
+    const newAddress = await this.deliveryAddressRepository.create({
+      cep: createAddress.cep,
+      number: createAddress.number,
+      complement: createAddress.complement,
+      reference: createAddress.reference,
+      customer: currentCustomer,
+    });
+    await this.deliveryAddressRepository.save(newAddress);
+
+    return { success: true, data: 'Endereço cadastrado com sucesso!' };
   }
 
   public async updateAddress(id, dadosAtualizados: UpdateAddressDto) {

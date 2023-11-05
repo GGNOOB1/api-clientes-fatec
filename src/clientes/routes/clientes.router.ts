@@ -19,6 +19,11 @@ clientesRouter
   .patch(customerController.updateAddress.bind(customerController));
 
 clientesRouter
+  .route('/endereco/cliente/:id')
+  .all(authenticateToken)
+  .post(customerController.addAddress.bind(customerController));
+
+clientesRouter
   .route('/:id')
   .all(authenticateToken)
   .get(customerController.listClient.bind(customerController))
